@@ -7,7 +7,7 @@ export default {
     user: JSON.parse(window.localStorage.getItem('nuedcUser') || '{}'),
     token: window.localStorage.getItem('nuedcToken') || '',
     role: window.localStorage.getItem('nuedcRole') || 'student',
-    nobg: []
+    nobg: ['/login']
   },
   subscriptions: {
     appSubscriber ({dispatch, history}) {

@@ -27,7 +27,6 @@ class Header extends React.Component {
       })
     })
   }
-
   getAnimData = phoneOpen => (phoneOpen ? {
     phoneOpen: false,
     openAnim: {opacity: 0, delay: 300, duration: 400},
@@ -56,6 +55,7 @@ class Header extends React.Component {
     }
     this.setState(this.getAnimData(phoneOpen))
   }
+  //   退出登录用的模态框
   onClickLogout = (e) => {
     e.preventDefault()
     const {dispatch} = this.props
@@ -98,13 +98,16 @@ class Header extends React.Component {
             className={`${this.props.className}-logo`}
             animation={{opacity: 0, type: 'from'}}
           >
-            <Link to='/' key='logo' onClick={(e) => { this.phoneClick(e, this.state.phoneOpen, '/', true) }}>
-              <span style={{fontSize: 20, color: '#fff'}}>
-                {this.state.isMode ? (
-                  '全国大学生电子设计竞赛'
-                ) : config.name}
-             </span>
-            </Link>
+            {/*<Link to='/' key='logo' onClick={(e) => { this.phoneClick(e, this.state.phoneOpen, '/', true) }}>*/}
+              {/*<span style={{fontSize: 20, color: '#fff'}}>*/}
+                {/*{this.state.isMode ? (*/}
+                  {/*'全国大学生电子设计竞赛'*/}
+                {/*) : config.name}*/}
+              {/*</span>*/}
+            {/*</Link>*/}
+            <span style={{fontSize: 20, color: '#fff'}}>
+              logo
+            </span>
           </TweenOne>
           {
             this.state.isMode ? (
@@ -128,7 +131,7 @@ class Header extends React.Component {
                         ) : (
                           <Link to={`/login?from=${location.pathname}`}
                           >
-                            登录注册
+                            登录
                           </Link>
                         )}
                       </li>
@@ -155,7 +158,7 @@ class Header extends React.Component {
                       <Dropdown overlay={(
                         <Menu theme='dark' style={{width: 90, float: 'right'}}>
                           <Menu.Item key=''>
-                            <Link to={`/${app.role}`}>{app.role === 'student' ? '参与竞赛' : '进入后台'}  </Link>
+                            <Link to={`/${app.role}`}>{app.role === 'student' ? '参与竞赛' : '进入后台'}</Link>
                           </Menu.Item>
                           <Menu.Item key='2'>
                             <Link onClick={this.onClickLogout}> 退出登录 </Link>

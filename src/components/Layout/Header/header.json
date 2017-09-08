@@ -1,24 +1,19 @@
 {
   "navItem": [
     {
-      "name": "首页",
-      "href": "/home",
-      "key": "home"
+      "name": "我的订单",
+      "href": "/myOrder",
+      "key": "myOrder"
     },
     {
-      "name": "新闻中心",
-      "href": "/news",
-      "key": "news"
+      "name": "创建订单",
+      "href": "/createOrder",
+      "key": "createOrder"
     },
     {
-      "name": "通知中心",
-      "href": "/notices",
-      "key": "notices"
-    },
-    {
-      "name": "下载中心",
-      "href": "/download",
-      "key": "download"
+      "name": "我的管理",
+      "href": "/myManage",
+      "key": "myManage"
     }
   ]
 }

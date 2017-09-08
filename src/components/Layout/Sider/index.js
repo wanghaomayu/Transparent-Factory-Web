@@ -4,7 +4,7 @@ import { Link } from 'dva/router'
 import { urlEncode, windowScroll } from '../../../utils'
 const {SubMenu} = Menu
 const Sider = ({menuConfig, location, query = {}}) => {
-  const menus = menuConfig
+  const {menus = [], openKeys = [], defaultSelectedKeys} = menuConfig
   const renderMenus = menus => (
     menus.map(item => {
       const {subMenus = []} = item
@@ -18,8 +18,7 @@ const Sider = ({menuConfig, location, query = {}}) => {
       const queryString = item.route ? '?' + urlEncode(query[item.route] || {}) : ''
       return (
         <Menu.Item key={item.key}>
-          <Link to={item.key + queryString}><Icon type={item.icon} /> {item.value}
-          </Link>
+          <Link to={item.key + queryString}><Icon type={item.icon} />{item.value}</Link>
         </Menu.Item>
       )
     })

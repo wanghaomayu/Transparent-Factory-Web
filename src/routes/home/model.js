@@ -1,12 +1,20 @@
 export default {
   namespace: 'home',
-  subscriptions: {
-    appSubscriber ({dispatch, history}) {
-      return history.listen(({pathname}) => {
-        console.log('home')
-      })
-    }
+  subscriptions: {},
+  effects: {},
+  state: {
+    query: {}
   },
-  state: {},
-  reducers: {}
+  reducers: {
+    saveQuery (state,{payload}) {
+      const query = {
+        ...state.query,
+        payload
+      }
+      return {
+        ...state,
+        query
+      }
+    }
+  }
 }

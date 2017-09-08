@@ -1,22 +1,17 @@
-/**
- * Created by out_xu on 17/8/10.
- */
-import React, {
-  Component,
-  PropTypes,
-} from 'react'
+import React from 'react'
+import menuConfig from './config/menu.json'
+import { connect } from 'dva'
+import Sider from '../../components/Layout/Sider'
 
-class index extends Component {
-  render () {
-    return (
-      <div>
-        index
-      </div>
-    )
-  }
-}
+const home = ({children, location, contest = {}}) => (
+  <div className='main-wrapper'>
+    <sider className='sider light'>
+      <Sider menuConfig={menuConfig} location={location} query={contest.query} />
+    </sider>
+    <div className='main-container'>
+      {children}
+    </div>
+  </div>
+)
 
-index.propTypes = {}
-index.defaultProps = {}
-
-export default index
+export default connect(({app, home}) => ({app, home}))(home)

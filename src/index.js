@@ -13,7 +13,7 @@ const app = dva({
   history: browserHistory,
   onError (error) {
     message.error(error.message)
-  },
+  }
 })
 
 // 2. Model
