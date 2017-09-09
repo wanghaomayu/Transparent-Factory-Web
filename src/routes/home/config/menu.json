@@ -4,19 +4,19 @@
   "defaultSelectedKeys": [],
   "menus": [
     {
-      "key": "myOrder/current",
+      "key": "home/current",
       "route": "current",
       "value": "进行中",
       "icon": "pause"
     },
     {
-      "key": "myOrder/unstart",
+      "key": "home/unstart",
       "value": "未开始",
       "route": "unstart",
       "icon": "minus"
     },
     {
-      "key": "myOrder/past",
+      "key": "home/past",
       "value": "已完成",
       "route": "past",
       "icon": "check"

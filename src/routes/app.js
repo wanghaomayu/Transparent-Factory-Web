@@ -10,7 +10,6 @@ import Layout from '../components/Layout'
 
 const App = (props) => {
   const {loading} = props
-  console.log(props)
   NProgress.start()
   !loading.global && NProgress.done()
   const {logoSrc = '', name = '', iconFontJS, iconFontCSS} = config
