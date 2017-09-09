@@ -7,6 +7,7 @@ const apiMaker = path => `${baseURL}/${path}`
 export default {
 
   host: apiMaker(''),
+  login: apiMaker('user/login'),
   //  order
   myOrderCurrent: apiMaker('order/current'),
   // procedure state edit by raoul

@@ -5,6 +5,7 @@ import { config, enquireScreen, goto } from '../../../utils/'
 import './index.less'
 import navConfig from './header.json'
 import { Dropdown, Icon, Menu, Modal } from 'antd'
+
 class Header extends React.Component {
   static defaultProps = {
     className: 'order-header'
@@ -27,6 +28,7 @@ class Header extends React.Component {
       })
     })
   }
+
   getAnimData = phoneOpen => (phoneOpen ? {
     phoneOpen: false,
     openAnim: {opacity: 0, delay: 300, duration: 400},
@@ -63,7 +65,9 @@ class Header extends React.Component {
       title: '退出确认',
       content: '是否退出？退出后下次进入需要重新登录。',
       onOk () {
-        dispatch({type: 'login/logout'})
+        dispatch({type: 'app/logout'})
+        window.localStorage.removeItem('userToken')
+        window.localStorage.removeItem('userName')
       },
       onCancel () {}
     })
@@ -72,6 +76,8 @@ class Header extends React.Component {
   render () {
     const {location, app} = this.props
     const {navItem = []} = navConfig
+    const token = window.localStorage.getItem('userToken')
+    const userName = window.localStorage.getItem('userName')
     const navToRender = navItem.map((item) => {
       const className = this.props.activeKey === item.key ? 'active' : ''
       return (
@@ -99,11 +105,11 @@ class Header extends React.Component {
             animation={{opacity: 0, type: 'from'}}
           >
             {/*<Link to='/' key='logo' onClick={(e) => { this.phoneClick(e, this.state.phoneOpen, '/', true) }}>*/}
-              {/*<span style={{fontSize: 20, color: '#fff'}}>*/}
-                {/*{this.state.isMode ? (*/}
-                  {/*'全国大学生电子设计竞赛'*/}
-                {/*) : config.name}*/}
-              {/*</span>*/}
+            {/*<span style={{fontSize: 20, color: '#fff'}}>*/}
+            {/*{this.state.isMode ? (*/}
+            {/*'全国大学生电子设计竞赛'*/}
+            {/*) : config.name}*/}
+            {/*</span>*/}
             {/*</Link>*/}
             <span style={{fontSize: 20, color: '#fff'}}>
               logo
@@ -125,16 +131,6 @@ class Header extends React.Component {
                   {this.state.phoneOpen && (
                     <ul>
                       {navToRender}
-                      <li key='user'>
-                        {app.user.id ? (
-                          <Link to={`/${app.role}`}> {app.role === 'student' ? '参与竞赛' : '进入后台'} </Link>
-                        ) : (
-                          <Link to={`/login?from=${location.pathname}`}
-                          >
-                            登录
-                          </Link>
-                        )}
-                      </li>
                       {app.user.id && (
                         <li key='logout'>
                           <Link onClick={this.onClickLogout}> 退出登录 </Link>
@@ -151,15 +147,12 @@ class Header extends React.Component {
                 className='web-nav'
                 animation={{opacity: 0, type: 'from'}}
               >
-                <ul>
-                  {navToRender}
-                  <li key='login'>
-                    {app.user.id ? (
+                {token ? (
+                  <ul>
+                    {navToRender}
+                    <li key='login'>
                       <Dropdown overlay={(
                         <Menu theme='dark' style={{width: 90, float: 'right'}}>
-                          <Menu.Item key=''>
-                            <Link to={`/${app.role}`}>{app.role === 'student' ? '参与竞赛' : '进入后台'}</Link>
-                          </Menu.Item>
                           <Menu.Item key='2'>
                             <Link onClick={this.onClickLogout}> 退出登录 </Link>
                           </Menu.Item>
@@ -167,19 +160,22 @@ class Header extends React.Component {
                         </Menu>
                       )}>
                         <a>
-                          <Icon type='user' /> {app.user.name || '未命名用户'} <Icon type='down' />
+                          <Icon type='user' /> {userName || '未命名用户'} <Icon type='down' />
                         </a>
                       </Dropdown>
-                    ) : (
+                    </li>
+                  </ul>
+                ) : (
+                  <ul>
+                    <li key='login'>
                       <Link
                         to={`/login?from=${location.pathname}`}
                       >
-                        登录注册
+                        登录
                       </Link>
-                    )}
-                  </li>
-
-                </ul>
+                    </li>
+                  </ul>
+                )}
               </TweenOne>
             )
           }

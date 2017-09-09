@@ -1,10 +1,11 @@
 import { API, request } from '../utils'
 
-const query = async () => {
+const login = async (data) => {
   return request({
-    url: API.tokenVerify,
-    method: 'get',
-    token: true
+    url: API.login,
+    method: 'post',
+    token: true,
+    data
   })
 }
 const exportF = async ({filename}) => {
@@ -16,4 +17,4 @@ const exportF = async ({filename}) => {
   })
 }
 
-export { query, exportF }
+export { login, exportF }

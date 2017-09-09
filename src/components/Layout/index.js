@@ -8,7 +8,6 @@ import Footer from './Footer'
 import TweenOne from 'rc-tween-one'
 const Layout = (props) => {
   const {app, routes = []} = props
-  const {nobg = []} = app
   let routePath = routes.map((item) => {
     return item.path === '/' ? '' : item.path
   })
@@ -22,8 +21,7 @@ const Layout = (props) => {
           className='anim'
           key={props.location.pathname}
         >
-          <div
-            className={nobg.includes(routePath.join('/')) ? 'no-bg' : ''}>
+          <div>
             <Header {...props} />
           </div>
           {props.children}

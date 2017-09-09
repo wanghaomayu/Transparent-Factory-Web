@@ -13,7 +13,7 @@ const App = (props) => {
   NProgress.start()
   !loading.global && NProgress.done()
   const {logoSrc = '', name = '', iconFontJS, iconFontCSS} = config
-  const {app: {role = 'student'}, location: {pathname = ''}} = props
+  const {app: {role = 'student', isLogin = false}, location: {pathname = ''}} = props
   const match = pathToRegexp(`/${role}/:params`).exec(pathname) || pathname === '/' + role
   return (
     <div>
