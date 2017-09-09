@@ -2,17 +2,17 @@ import React, {
   Component,
   PropTypes,
 } from 'react'
-class index extends Component {
+class Index extends Component {
   render () {
     return (
       <div>
-        index
+        this is the Index page
       </div>
     )
   }
 }
 
-index.propTypes = {}
-index.defaultProps = {}
+Index.propTypes = {}
+Index.defaultProps = {}
 
-export default index
+export default Index
