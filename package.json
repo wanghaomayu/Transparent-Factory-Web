@@ -60,6 +60,7 @@
   "scripts": {
     "dev": "PORT=8083 set BROWSER=none&&set HOST=0.0.0.0&&roadhog server",
     "lint": "eslint --fix --ext .js src",
+    "push":"git add . && git commit && git push",
     "build": "roadhog build --analyze",
     "prod": "gulp",
     "pre": "gulp pre"
