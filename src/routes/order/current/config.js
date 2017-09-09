@@ -1,6 +1,6 @@
 import { verify } from '../../../utils'
 
-const commenConfig = [
+const commonConfig = [
   {
     value: 'title',
     label: '订单名称',
@@ -43,15 +43,24 @@ const commenConfig = [
       requiredMessage: '请选择结束时间',
     },
   }, {
-    value: 'title',
-    label: '订单名称',
+    value: 'type',
+    label: '订单类型',
     formType: 0,
     contentType: 'string',
     rules: {
       required: true,
-      requiredMessage: '请输入订单名称',
+      requiredMessage: '请输入订单类型',
     },
     hasFeedback: false,
+  }, {
+    value: 'totalCount',
+    label: '订单总数量',
+    formType: 0,
+    contentType: 'number',
+    rules: {
+      required: true,
+      requiredMessage: '请输入订单总数量',
+    }
   }, {
     value: 'totalCount',
     label: '订单总数量',
@@ -64,4 +73,4 @@ const commenConfig = [
   }
 ]
 
-export { commenConfig }
+export { commonConfig }

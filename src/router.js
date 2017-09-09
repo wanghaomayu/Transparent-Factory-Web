@@ -5,6 +5,7 @@ import App from './routes/app'
 const registerModel = (app, model) => {
 
   if (!(app._models.filter(m => m.namespace === model.namespace).length === 1)) {
+
     app.model(model)
   }
 }
@@ -29,9 +30,9 @@ const Routers = ({history, app}) => {
       path: '/',
       component: App,
       getIndexRoute({location}, cb) {
-        const model = require(`./routes/home/model.js`)
+        const model = require(`./routes/order/model`)
         registerModel(app, model)
-        cb(null, {component: require('./routes/home')})
+        cb(null, {component: require('./routes/order')})
       },
       getChildRoutes({location}, cb) {
         registerModelByPath(app, location.pathname)

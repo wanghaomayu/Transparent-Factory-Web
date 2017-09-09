@@ -8,7 +8,7 @@ export default {
 
   host: apiMaker(''),
   //  order
-  myOrderCurrent: apiMaker('myOrder/current'),
+  myOrderCurrent: apiMaker('order/current'),
   // procedure state edit by raoul
   procedureAdd: apiMaker('procedure/add'),
   getProcedureList: apiMaker('procedure/list/:workGroupId'),

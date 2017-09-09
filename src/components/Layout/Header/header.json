@@ -2,13 +2,8 @@
   "navItem": [
     {
       "name": "我的订单",
-      "href": "/myOrder",
-      "key": "myOrder"
-    },
-    {
-      "name": "创建订单",
-      "href": "/createOrder",
-      "key": "createOrder"
+      "href": "/order",
+      "key": "order"
     },
     {
       "name": "我的管理",

@@ -1,5 +1,5 @@
 module.exports = {
-  path: 'home',
+  path: 'order',
   getIndexRoute (nextState, cb) {
     require.ensure([], require => {
       cb(null, {component: require('./current/index')})

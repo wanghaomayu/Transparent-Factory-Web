@@ -3,7 +3,7 @@ import menuConfig from './config/menu.json'
 import { connect } from 'dva'
 import Sider from '../../components/Layout/Sider'
 
-const home = ({children, location, contest = {}}) => (
+const Order = ({children, location, contest = {}}) => (
   <div className='main-wrapper'>
     <sider className='sider light'>
       <Sider menuConfig={menuConfig} location={location} query={contest.query} />
@@ -14,4 +14,4 @@ const home = ({children, location, contest = {}}) => (
   </div>
 )
 
-export default connect(({app, home}) => ({app, home}))(home)
+export default connect(({app, order}) => ({app, order}))(Order)

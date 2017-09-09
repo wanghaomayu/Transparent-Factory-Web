@@ -34,8 +34,7 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
   //   }]
   const onCreateClick = e => {
     e.preventDefault()
-    dispatch(
-      {type: 'current/updateModalContent', payload: {modalTitle: '创建竞赛'}})
+    dispatch({type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
     dispatch({type: 'current/showModal', payload: 'create'})
   }
   const onModalOk = () => {
@@ -44,14 +43,14 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
         return
       }
       const {
-        title = '', description = '', add_on = '', startTime = '', endTime = '', totalCount = '', customerInfo = '',
+        title = '', description = '',  startTime = '', endTime = '', totalCount = '', customerInfo = '',
       } = values
       let payload = {}
       if (modal === 'create' || modal === 'update') {
         payload = {
           title,
           description,
-          add_on,
+          totalCount,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
           endTime: endTime.format('YYYY-MM-DD HH:00:00'),
         }
@@ -66,18 +65,17 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
     showSizeChanger: true,
     onShowSizeChange: (current, pageSize) => {
       dispatch(
-        routerRedux.push(`/admin/school?page=${current}&size=${pageSize}`))
+        routerRedux.push(`/order/current?page=${current}&size=${pageSize}`))
     },
     onChange: (current) => {
-      dispatch(
-        routerRedux.push(`/admin/school?page=${current}&size=${tableSize}`))
-    },
+      dispatch(routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
+    }
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
     {title: '订单号', dataIndex: 'orderCode', key: 'orderCode'},
     {title: '订单名', key: 'title', dataIndex: 'title'},
-    {title: '创建者序号', key: 'creatorId', dataIndex: 'creatorId'},
+    {title: '创建者序号', key: 'creatorId', dataIndex: 'creatorId',width: '70'},
     {title: '全部数量', key: 'totalCount', dataIndex: 'totalCount'},
     {title: '生产公司', key: 'customerInfo', dataIndex: 'customerInfo'},
     {title: '生产力', key: 'capacity', dataIndex: 'capacity'},
@@ -96,9 +94,13 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
               }, {
                 key: 'procedures', name: '工序操作',
               }]}
+            buttonStyle={{border: 'solid 1px #eee'}}
           />
         )
       },
+      fixed: 'right',
+      width: 80,
+      key: 'edit',
     },
   ]
   return (

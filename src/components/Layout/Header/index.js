@@ -7,7 +7,7 @@ import navConfig from './header.json'
 import { Dropdown, Icon, Menu, Modal } from 'antd'
 class Header extends React.Component {
   static defaultProps = {
-    className: 'home-header'
+    className: 'order-header'
   }
 
   constructor (props) {

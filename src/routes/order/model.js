@@ -1,5 +1,5 @@
 export default {
-  namespace: 'home',
+  namespace: 'order',
   subscriptions: {},
   effects: {},
   state: {
