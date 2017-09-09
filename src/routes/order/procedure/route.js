@@ -1,6 +1,6 @@
 module.exports = {
   path: 'procedure',
-  getComponents(nextState, callback) {
+  getComponents (nextState, callback) {
     require.ensure([], () => {
       callback(null, require('./index'))
     })

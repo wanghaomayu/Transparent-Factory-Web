@@ -12,7 +12,8 @@ export default {
   myOrderCurrent: apiMaker('order/current'),
   // procedure state edit by raoul
   procedureAdd: apiMaker('procedure/add'),
-  getProcedureList: apiMaker('procedure/list/:workGroupId'),
+  getProcedureList: apiMaker('/order/:orderId/procedures'),
+  getGroup: apiMaker('procedure/list/:workGroupId'),
   procedureDetail: apiMaker('procedure/detail/:procedureId'),
   procedureStatus: apiMaker('procedure/status/:procedureId'),
   procedureDelete: apiMaker('procedure/delete/:procedureId'),

@@ -1,4 +1,4 @@
-import {API, request} from '../../../../utils'
+import {API, request} from '../../../utils/index'
 
 const procedureAdd = async (data) => request({
   url: API.procedureAdd,

@@ -1,15 +1,26 @@
-import modelExtend from 'dva-model-extend'
+// import pathToRegexp from 'path-to-regexp'
+// import { message } from 'antd'
+/* eslint-disable */
+
 import {
   modalModel,
   tableModel,
   alertModel
 } from '../../../models/modelExtend'
-// import pathToRegexp from 'path-to-regexp'
-// import { message } from 'antd'
-import {fetchTable} from './service'
+import pathToRegexp from 'path-to-regexp'
+import { message } from 'antd'
+import {
+  procedureAdd,
+  procedureDelete,
+  procedureUpdate,
+  getProcedureList,
+  procedureDetail,
+  changeProcedureStatus,
+  procedureLogs
+} from './service'
 
 export default modelExtend(modalModel, tableModel, alertModel, {
-  namespace: 'current',
+  namespace: 'procedure',
   state: {},
   subscriptions: {
     appSubscriber({dispatch, history}) {
@@ -26,7 +37,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       const {tablePage, tableSize} = yield select(({current}) => current)
       const {page = 1, size = 50, force = false} = payload
       if (tablePage !== page || tableSize !== size || force) {
-        const data = yield call(fetchTable, {page, size})
+        const data = yield call(getProcedureList, {page, size})
         const {orders, totalCount} = data
         const tableConfig = {
           tablePage: page,
