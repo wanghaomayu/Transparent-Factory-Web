@@ -8,8 +8,11 @@ export default {
 
   host: apiMaker(''),
   login: apiMaker('user/login'),
-  //  order
+  //  order state edit by wanghaomayu
   myOrderCurrent: apiMaker('order/current'),
+  createOrder: apiMaker('order'),
+  updateOrder: apiMaker('order/:id'),
+  // end by wanghaomayu
   // procedure state edit by raoul
   procedureAdd: apiMaker('procedure/add'),
   getProcedureList: apiMaker('/order/:orderId/procedures'),

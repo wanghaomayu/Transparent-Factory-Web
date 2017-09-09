@@ -1,49 +1,66 @@
 import React from 'react'
 import { Table, Form, Button, Modal } from 'antd'
-import { Link, routerRedux } from 'dva/router'
+import { routerRedux } from 'dva/router'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
 import { commonConfig } from './config'
 import { connect } from 'dva'
-import { color, urlEncode } from '../../../utils'
+import { urlEncode } from '../../../utils'
+import moment from 'moment'
 import './index.less'
 
-const Current = ({location, current, dispatch, form: {getFieldDecorator, validateFieldsAndScroll}}) => {
+const {confirm} = Modal
+
+const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAndScroll}}) => {
   const {table = {}, tableSize, tableCount, tablePage, modal = false, modalContent = {}} = current
-  const {query} = location
-  // const formItemLayout = {
-  //   labelCol: {
-  //     xs: {span: 24},
-  //     sm: {span: 6},
-  //   },
-  //   wrapperCol: {
-  //     xs: {span: 24},
-  //     sm: {span: 16},
-  //   },
-  // }
-  // const status = [
-  //   {
-  //     color: color.green,
-  //     value: '自动',
-  //   }, {
-  //     color: color.red,
-  //     value: '关闭',
-  //   }, {
-  //     color: color.blue,
-  //     value: '开启',
-  //   }]
+  //   操作DropOption按钮操作
+  const onMenuClick = (key, record) => {
+    let payload = {}
+    switch (key) {
+      case 'update':
+        const {startTime, endTime} = record
+        payload = {
+          ...record,
+          modalTitle: '修改订单-' + record.title,
+          title: record.title,
+          description: record.description,
+          type: record.type,
+          totalCount: record.totalCount,
+          customerInfo: record.customerInfo,
+          addOn: record.addOn,
+          startTime: moment(startTime, 'YYYY-MM-DD'),
+          endTime: moment(endTime, 'YYYY-MM-DD'),
+        }
+        dispatch({type: 'current/updateModalContent', payload: payload})
+        dispatch({type: 'current/showModal', payload: 'update'})
+        break
+      case 'procedures':
+        confirm({
+          title: `跳转确认`,
+          content: `你确定要跳转到 ${record.title} 题目列表吗？`,
+          onOk () {
+            dispatch(routerRedux.push(`/order/procedure?` +
+              urlEncode({order_code: record.orderCode})))
+          },
+          onCancel () {},
+        })
+        break
+    }
+  }
   const onCreateClick = e => {
     e.preventDefault()
-    dispatch({type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
+    dispatch(
+      {type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
     dispatch({type: 'current/showModal', payload: 'create'})
   }
+  //   模态框确定按钮
   const onModalOk = () => {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return
       }
       const {
-        title = '', description = '',  startTime = '', endTime = '', totalCount = '', customerInfo = '',
+        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = '',
       } = values
       let payload = {}
       if (modal === 'create' || modal === 'update') {
@@ -51,10 +68,14 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
           title,
           description,
           totalCount,
+          customerInfo,
+          type,
+          addOn,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
           endTime: endTime.format('YYYY-MM-DD HH:00:00'),
         }
       }
+      dispatch({type: `current/${modal}`, payload: payload})
     })
   }
   const pagination = {
@@ -68,14 +89,15 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
         routerRedux.push(`/order/current?page=${current}&size=${pageSize}`))
     },
     onChange: (current) => {
-      dispatch(routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
-    }
+      dispatch(
+        routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
+    },
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
     {title: '订单号', dataIndex: 'orderCode', key: 'orderCode'},
     {title: '订单名', key: 'title', dataIndex: 'title'},
-    {title: '创建者序号', key: 'creatorId', dataIndex: 'creatorId',width: '70'},
+    {title: '创建者序号', key: 'creatorId', dataIndex: 'creatorId', width: 70},
     {title: '全部数量', key: 'totalCount', dataIndex: 'totalCount'},
     {title: '生产公司', key: 'customerInfo', dataIndex: 'customerInfo'},
     {title: '生产力', key: 'capacity', dataIndex: 'capacity'},
@@ -95,6 +117,7 @@ const Current = ({location, current, dispatch, form: {getFieldDecorator, validat
                 key: 'procedures', name: '工序操作',
               }]}
             buttonStyle={{border: 'solid 1px #eee'}}
+            onMenuClick={({key}) => onMenuClick(key, record)}
           />
         )
       },

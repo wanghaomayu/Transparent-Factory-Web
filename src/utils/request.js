@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { message } from 'antd'
+// import { message } from 'antd'
 
 const fetch = options => {
   let {
@@ -8,7 +8,7 @@ const fetch = options => {
     url,
     token = false
   } = options
-  const header = token ? {'token': window.localStorage.getItem('nuedcToken')} : {}
+  const header = token ? {'token': window.localStorage.getItem('userToken')} : {}
   const myAxios = axios.create({
     timeout: 15000,
     headers: header

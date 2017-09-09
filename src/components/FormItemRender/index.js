@@ -114,5 +114,26 @@ export default (config, getFieldDecorator, extra = {}) => {
           )}
         </FormItem>
       )
+    case 4:
+      return (
+        <FormItem
+          label={config.label}
+          {...formItemLayout}
+          key={config.value}
+          extra={config.extra || ''}
+        >
+          {getFieldDecorator(config.value, {
+            rules: [{required: rules.required, message: rules.requiredMessage}],
+            initialValue: initialValue || ''
+          })(
+            <DatePicker
+              style={{width: '100%'}}
+              showTime={{format: 'HH:00'}}
+              format='YYYY-MM-DD'
+              renderExtraFooter={() => 'extra footer'}
+            />
+          )}
+        </FormItem>
+      )
   }
 }

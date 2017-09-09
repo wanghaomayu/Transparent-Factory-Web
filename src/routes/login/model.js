@@ -8,7 +8,7 @@ export default {
     appSubscriber ({dispatch, history}) {
       return history.listen(({pathname}) => {
       })
-    }
+    },
   },
   state: {},
   effects: {
@@ -24,7 +24,8 @@ export default {
       yield put({type: 'app/setUser', payload: user})
       yield put({type: 'app/setInfo', payload: {token: token}})
       yield put(routerRedux.push('order/current'))
-    }
+      yield put({type: 'current/fetchTable', payload: {force: true}})
+    },
   },
-  reducers: {}
+  reducers: {},
 }

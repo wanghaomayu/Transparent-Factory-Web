@@ -5,20 +5,16 @@ import pathToRegexp from 'path-to-regexp'
 export default {
   namespace: 'app',
   state: {
-    user: JSON.parse(window.localStorage.getItem('nuedcUser') || '{}'),
-    token: window.localStorage.getItem('nuedcToken') || '',
-    nobg: []
+    user: window.localStorage.getItem('userName') || '{}',
+    token: window.localStorage.getItem('userToken') || '',
+    nobg: [],
   },
   subscriptions: {
     appSubscriber ({dispatch, history}) {
       return history.listen(({pathname}) => {
-        const role = window.localStorage.getItem('userToken')
-        const match = pathToRegexp(`/${role}/:params`).exec(pathname)
-        if (!!match || pathname === `/${role}`) {
-          !!window.localStorage.getItem('nuedcToken') && dispatch({type: 'query'})
-        }
+        window.localStorage.getItem('userToken')
       })
-    }
+    },
   },
   effects: {
     * query ({}, {call, put, select}) {
@@ -36,36 +32,36 @@ export default {
     querySuccess (state, {payload: user}) {
       return {
         ...state,
-        user
+        user,
       }
     },
     logout (state) {
       return {
         ...state,
-        user: {}
+        user: {},
       }
     },
     setInfo (state, {payload: {token}}) {
       return {
         ...state,
-        token
+        token,
       }
     },
     setUser (state, {payload: user}) {
       return {
         ...state,
-        user
+        user,
       }
     },
     saveQuery (state, {payload}) {
       const query = {
         ...state.query,
-        payload
+        payload,
       }
       return {
         ...state,
-        query
+        query,
       }
-    }
-  }
+    },
+  },
 }
