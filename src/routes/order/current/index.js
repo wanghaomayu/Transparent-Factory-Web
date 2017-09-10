@@ -40,17 +40,16 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           content: `你确定要跳转到 ${record.title} 题目列表吗？`,
           onOk () {
             dispatch(routerRedux.push(`/order/procedure?` +
-              urlEncode({order_code: record.orderCode})))
+              urlEncode({id: record.id})))
           },
-          onCancel () {},
+          onCancel () {}
         })
         break
     }
   }
   const onCreateClick = e => {
     e.preventDefault()
-    dispatch(
-      {type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
+    dispatch({type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
     dispatch({type: 'current/showModal', payload: 'create'})
   }
   //   模态框确定按钮
@@ -72,7 +71,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           type,
           addOn,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
-          endTime: endTime.format('YYYY-MM-DD HH:00:00'),
+          endTime: endTime.format('YYYY-MM-DD HH:00:00')
         }
       }
       dispatch({type: `current/${modal}`, payload: payload})
@@ -91,7 +90,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
     onChange: (current) => {
       dispatch(
         routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
-    },
+    }
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -123,8 +122,8 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
       },
       fixed: 'right',
       width: 80,
-      key: 'edit',
-    },
+      key: 'edit'
+    }
   ]
   return (
     <div className='contest'>

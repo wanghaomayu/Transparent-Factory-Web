@@ -19,7 +19,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
           dispatch({type: 'hideAlert'})
         }
       })
-    },
+    }
   },
   effects: {
     * fetchTable ({payload = {}}, {call, select, put}) {
@@ -52,7 +52,6 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     },
     * update ({payload}, {select, call, put}) {
       const {id} = yield select(({current}) => current.modalContent)
-      console.log(id)
       yield call(update, payload, id)
       yield put({type: 'hideModal'})
       message.success('修改成功')
