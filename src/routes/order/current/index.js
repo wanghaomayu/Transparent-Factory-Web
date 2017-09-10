@@ -13,7 +13,7 @@ const {confirm} = Modal
 
 const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAndScroll}}) => {
   const {table = {}, tableSize, tableCount, tablePage, modal = false, modalContent = {}} = current
-  //   操作DropOption按钮操作
+  //   操作DropOption按钮操作，点击之后模态框中form表单显示的信息
   const onMenuClick = (key, record) => {
     let payload = {}
     switch (key) {
@@ -24,7 +24,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           modalTitle: '修改订单-' + record.title,
           title: record.title,
           description: record.description,
-          type: record.type,
+          type: '' + record.type,
           totalCount: record.totalCount,
           customerInfo: record.customerInfo,
           addOn: record.addOn,
@@ -69,10 +69,10 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           description,
           totalCount,
           customerInfo,
-          type,
           addOn,
-          startTime: startTime.format('YYYY-MM-DD HH:00:00'),
-          endTime: endTime.format('YYYY-MM-DD HH:00:00'),
+          type: +type,   //   上传给后端的type数据类型需要是number，故强制转换
+          startTime: startTime.format('YYYY-MM-DD 08:00:00'),
+          endTime: endTime.format('YYYY-MM-DD 00:08:00'),
         }
       }
       dispatch({type: `current/${modal}`, payload: payload})

@@ -11,7 +11,7 @@ const registerModel = (app, model) => {
 }
 const registerModelByPath = (app, pathname) => {
   const routersArr = []
-  location.pathname.split('/').reduce((routers, route) => {
+  pathname.split('/').reduce((routers, route) => {
     routersArr.push(routers + '/' + route)
     return routers + '/' + route
   })

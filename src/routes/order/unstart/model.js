@@ -31,7 +31,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
         const tableConfig = {
           tablePage: page,
           tableSize: size,
-          tableCount: totalCount,
+          tableCount: totalCount
         }
         const table = orders.map((t, i) => ({
           ...t,

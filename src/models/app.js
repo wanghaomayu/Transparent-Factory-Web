@@ -1,7 +1,7 @@
 import { query } from '../services/app'
 import { sleep } from '../utils'
 import pathToRegexp from 'path-to-regexp'
-
+import {routerRedux} from 'dva/router'
 export default {
   namespace: 'app',
   state: {
@@ -12,7 +12,9 @@ export default {
   subscriptions: {
     appSubscriber ({dispatch, history}) {
       return history.listen(({pathname}) => {
-        window.localStorage.getItem('userToken')
+          if (pathname==='/') {
+            dispatch(routerRedux.push('/order/current'))
+          }
       })
     },
   },
