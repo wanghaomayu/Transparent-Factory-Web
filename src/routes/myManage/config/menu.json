@@ -1,0 +1,29 @@
+{
+  "title": "透明工厂-web端",
+  "openKeys": [],
+  "defaultSelectedKeys": [],
+  "menus": [
+    {
+      "key": "myManage/message",
+      "route": "message",
+      "value": "我的信息",
+      "icon": "user"
+    },
+    {
+      "key": "myManage/correct",
+      "value": "修改密码",
+      "route": "correct"
+    },
+    {
+      "key": "myManage/phone",
+      "value": "更改手机绑定",
+      "route": "phone"
+    },
+    {
+      "key": "myManage/group",
+      "value": "班组长信息管理",
+      "route": "group",
+      "icon": "team"
+    }
+  ]
+}

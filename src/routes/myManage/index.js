@@ -1,18 +1,17 @@
-import React, {
-  Component,
-  PropTypes,
-} from 'react'
-class index extends Component {
-  render () {
-    return (
-      <div>
-        index
-      </div>
-    )
-  }
-}
+import React from 'react'
+import menuConfig from './config/menu.json'
+import { connect } from 'dva'
+import Sider from '../../components/Layout/Sider'
 
-index.propTypes = {}
-index.defaultProps = {}
+const Order = ({children, location, contest = {}}) => (
+  <div className='main-wrapper'>
+    <sider className='sider light'>
+      <Sider menuConfig={menuConfig} location={location} query={contest.query} />
+    </sider>
+    <div className='main-container'>
+      {children}
+    </div>
+  </div>
+)
 
-export default index
+export default connect(({app, order}) => ({app, order}))(Order)
