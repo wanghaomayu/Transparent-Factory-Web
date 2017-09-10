@@ -10,7 +10,9 @@ import { fetchTable, create, update } from './service'
 
 export default modelExtend(modalModel, tableModel, alertModel, {
   namespace: 'current',
-  state: {},
+  state: {
+    orderCode: []
+  },
   subscriptions: {
     appSubscriber ({dispatch, history}) {
       return history.listen(({pathname, query}) => {
@@ -37,6 +39,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
           ...t,
           fakeId: i + 1 + (page - 1) * size,
         }))
+        console.log(table)
         yield put({type: 'setTable', payload: table})
         yield put({type: 'setTableConfig', payload: tableConfig})
       }

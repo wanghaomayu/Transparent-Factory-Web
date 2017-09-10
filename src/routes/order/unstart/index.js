@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Form, Button, Modal } from 'antd'
+import { Table, Form, Button, Modal, Alert } from 'antd'
 import { routerRedux } from 'dva/router'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
@@ -42,14 +42,15 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
             dispatch(routerRedux.push(`/order/procedure?` +
               urlEncode({id: record.id})))
           },
-          onCancel () {}
+          onCancel () {},
         })
         break
     }
   }
   const onCreateClick = e => {
     e.preventDefault()
-    dispatch({type: 'unStart/updateModalContent', payload: {modalTitle: '创建订单'}})
+    dispatch(
+      {type: 'unStart/updateModalContent', payload: {modalTitle: '创建订单'}})
     dispatch({type: 'unStart/showModal', payload: 'create'})
   }
   //   模态框确定按钮
@@ -59,7 +60,7 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
         return
       }
       const {
-        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = ''
+        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = '',
       } = values
       let payload = {}
       if (modal === 'create' || modal === 'update') {
@@ -71,7 +72,7 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
           type,
           addOn,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
-          endTime: endTime.format('YYYY-MM-DD HH:00:00')
+          endTime: endTime.format('YYYY-MM-DD HH:00:00'),
         }
       }
       dispatch({type: `unStart/${modal}`, payload: payload})
@@ -88,8 +89,9 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
         routerRedux.push(`/order/unStart?page=${current}&size=${pageSize}`))
     },
     onChange: (current) => {
-      dispatch(routerRedux.push(`/order/unStart?page=${current}&size=${tableSize}`))
-    }
+      dispatch(
+        routerRedux.push(`/order/unStart?page=${current}&size=${tableSize}`))
+    },
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -110,9 +112,9 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
           <DropOption
             menuOptions={[
               {
-                key: 'update', name: '修改订单'
+                key: 'update', name: '修改订单',
               }, {
-                key: 'procedures', name: '工序操作'
+                key: 'procedures', name: '工序操作',
               }]}
             buttonStyle={{border: 'solid 1px #eee'}}
             onMenuClick={({key}) => onMenuClick(key, record)}
@@ -121,20 +123,31 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
       },
       fixed: 'right',
       width: 80,
-      key: 'edit'
-    }
+      key: 'edit',
+    },
   ]
   return (
     <div className='contest'>
       <div className='contest-header'>
-        <span>进行中的订单</span>
+        <span>未开始的订单</span>
         <Button type='primary' onClick={onCreateClick}>创建订单</Button>
       </div>
-      <Table
-        columns={columns} bordered
-        dataSource={table} scroll={{x: 1600}}
-        pagination={pagination} rowKey={record => record.orderCode}
-      />
+      {
+        table.length > 0 ? (
+          <Table
+            columns={columns} bordered
+            dataSource={table} scroll={{x: 1600}}
+            pagination={pagination} rowKey={record => record.orderCode}
+          />
+        ) : (
+          <Alert
+            message={(<span>暂无进行中的订单列表，请先行创建订单</span>)}
+            description={(<span>点击右上角蓝色"创建订单"按钮</span>)}
+            type='info'
+            showIcon
+          />
+        )
+      }
       <Modal
         title={modalContent.modalTitle}
         visible={!!modal}

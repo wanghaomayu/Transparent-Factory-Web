@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Form, Button, Modal } from 'antd'
+import { Table, Form, Button, Modal, Alert } from 'antd'
 import { routerRedux } from 'dva/router'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
@@ -42,7 +42,7 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
             dispatch(routerRedux.push(`/order/procedure?` +
               urlEncode({id: record.id})))
           },
-          onCancel () {}
+          onCancel () {},
         })
         break
     }
@@ -71,7 +71,7 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
           type,
           addOn,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
-          endTime: endTime.format('YYYY-MM-DD HH:00:00')
+          endTime: endTime.format('YYYY-MM-DD HH:00:00'),
         }
       }
       dispatch({type: `past/${modal}`, payload: payload})
@@ -90,7 +90,7 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
     onChange: (current) => {
       dispatch(
         routerRedux.push(`/order/past?page=${current}&size=${tableSize}`))
-    }
+    },
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -123,19 +123,30 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
       fixed: 'right',
       width: 80,
       key: 'edit'
-    }
+    },
   ]
   return (
     <div className='contest'>
       <div className='contest-header'>
-        <span>进行中的订单</span>
+        <span>已完成的订单</span>
         <Button type='primary' onClick={onCreateClick}>创建订单</Button>
       </div>
-      <Table
-        columns={columns} bordered
-        dataSource={table} scroll={{x: 1600}}
-        pagination={pagination} rowKey={record => record.id}
-      />
+      {
+        table.length > 0 ? (
+          <Table
+            columns={columns} bordered
+            dataSource={table} scroll={{x: 1600}}
+            pagination={pagination} rowKey={record => record.orderCode.split('').reverse().join('')}
+          />
+        ) : (
+          <Alert
+            message={(<span>暂无进行中的订单列表，请先行创建订单</span>)}
+            description={(<span>点击右上角蓝色"创建订单"按钮</span>)}
+            type='info'
+            showIcon
+          />
+        )
+      }
       <Modal
         title={modalContent.modalTitle}
         visible={!!modal}
