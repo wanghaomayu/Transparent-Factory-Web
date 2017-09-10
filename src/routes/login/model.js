@@ -25,7 +25,7 @@ export default {
       yield put({type: 'app/setInfo', payload: {token: token}})
       yield put(routerRedux.push('order/current'))
       yield put({type: 'current/fetchTable', payload: {force: true}})
-    },
+    }
   },
   reducers: {},
 }

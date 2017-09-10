@@ -6,7 +6,7 @@
       "key": "order"
     },
     {
-      "name": "我的管理",
+      "name": "个人管理",
       "href": "/myManage",
       "key": "myManage"
     }

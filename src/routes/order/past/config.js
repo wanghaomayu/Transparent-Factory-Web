@@ -1,3 +1,5 @@
+import { verify } from '../../../utils'
+
 const commonConfig = [
   {
     value: 'title',
@@ -18,7 +20,7 @@ const commonConfig = [
     rules: {
       required: true,
       requiredMessage: '请输入订单描述',
-    }
+    },
   }, {
     value: 'startTime',
     label: '开始时间',
@@ -27,7 +29,7 @@ const commonConfig = [
     rules: {
       required: true,
       requiredMessage: '请选择开始时间',
-    }
+    },
   },
   {
     value: 'endTime',
@@ -37,12 +39,12 @@ const commonConfig = [
     rules: {
       required: true,
       requiredMessage: '请选择结束时间',
-    }
+    },
   }, {
     value: 'type',
     label: '订单类型',
     formType: 2,
-    contentType: 'number',
+    contentType: 'string',
     rules: {
       required: true,
       requiredMessage: '请输入订单类型',
@@ -50,12 +52,12 @@ const commonConfig = [
     options: [
       {
         value: '0',
-        label: '外部订单'
+        label: '外部订单',
       }, {
         value: '1',
-        label: '内部订单'
+        label: '内部订单',
       }],
-    hasFeedback: false
+    hasFeedback: false,
   }, {
     value: 'totalCount',
     label: '订单总数',

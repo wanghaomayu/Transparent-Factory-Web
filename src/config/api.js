@@ -10,6 +10,8 @@ export default {
   login: apiMaker('user/login'),
   //  order state edit by wanghaomayu
   myOrderCurrent: apiMaker('order/current'),
+  myOrderUnstart: apiMaker('order/unstart'),
+  myOrderPast: apiMaker('order/past'),
   createOrder: apiMaker('order'),
   updateOrder: apiMaker('order/:id'),
   // end by wanghaomayu
