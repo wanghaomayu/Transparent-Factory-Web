@@ -24,7 +24,7 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
           modalTitle: '修改订单-' + record.title,
           title: record.title,
           description: record.description,
-          type: record.type,
+          type: '' + record.type,
           totalCount: record.totalCount,
           customerInfo: record.customerInfo,
           addOn: record.addOn,
@@ -68,10 +68,10 @@ const Past = ({past, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
           description,
           totalCount,
           customerInfo,
-          type,
+          type: +type,
           addOn,
           startTime: startTime.format('YYYY-MM-DD HH:00:00'),
-          endTime: endTime.format('YYYY-MM-DD HH:00:00'),
+          endTime: endTime.format('YYYY-MM-DD HH:00:00')
         }
       }
       dispatch({type: `past/${modal}`, payload: payload})

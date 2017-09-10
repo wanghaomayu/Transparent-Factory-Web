@@ -33,13 +33,12 @@ export default modelExtend(modalModel, tableModel, alertModel, {
         const tableConfig = {
           tablePage: page,
           tableSize: size,
-          tableCount: totalCount,
+          tableCount: totalCount
         }
         const table = orders.map((t, i) => ({
           ...t,
-          fakeId: i + 1 + (page - 1) * size,
+          fakeId: i + 1 + (page - 1) * size
         }))
-        console.log(table)
         yield put({type: 'setTable', payload: table})
         yield put({type: 'setTableConfig', payload: tableConfig})
       }

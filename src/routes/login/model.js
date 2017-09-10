@@ -23,8 +23,8 @@ export default {
       window.localStorage.setItem('userName', user.name)
       yield put({type: 'app/setUser', payload: user})
       yield put({type: 'app/setInfo', payload: {token: token}})
-      yield put(routerRedux.push('order/current'))
-      yield put({type: 'current/fetchTable', payload: {force: true}})
+      yield put(routerRedux.push('/order/current'))
+      // yield put({type: 'current/fetchTable', payload: {force: true}})
     }
   },
   reducers: {},

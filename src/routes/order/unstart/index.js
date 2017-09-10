@@ -24,7 +24,7 @@ const UnStart = ({unStart, dispatch, form: {getFieldDecorator, validateFieldsAnd
           modalTitle: '修改订单-' + record.title,
           title: record.title,
           description: record.description,
-          type: record.options.value,
+          type: '' + record.value,
           totalCount: record.totalCount,
           customerInfo: record.customerInfo,
           addOn: record.addOn,
