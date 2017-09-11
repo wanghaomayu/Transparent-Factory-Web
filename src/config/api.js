@@ -29,6 +29,7 @@ export default {
   //  list of list state by wanghaomayu
   groupList: apiMaker('group/list'),
   createLeaders: apiMaker('admin/leaders/create'),
-  groupUpdate: apiMaker('list/update')
+  groupUpdate: apiMaker('list/update'),
   // end by wanghaomayu
+  updateMessage: apiMaker('user/:id')
 }

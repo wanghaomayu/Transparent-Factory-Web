@@ -21,6 +21,7 @@ export default {
       const {token, user} = data
       window.localStorage.setItem('userToken', token)
       window.localStorage.setItem('userName', user.name)
+      window.localStorage.setItem('mobile', user.mobile)
       yield put({type: 'app/setUser', payload: user})
       yield put({type: 'app/setInfo', payload: {token: token}})
       yield put(routerRedux.push('/order/current'))
