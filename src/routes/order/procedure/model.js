@@ -21,14 +21,13 @@ import {
 
 export default modelExtend(modalModel, tableModel, alertModel, {
   namespace: 'procedure',
-  state: {order_code: ''},
+  state: {query: {}},
   subscriptions: {
     appSubscriber({dispatch, history}) {
       return history.listen(({pathname, query}) => {
         if (pathname === '/order/procedure') {
-          const {order_code} = query
           dispatch({type: 'init', payload: query})
-          dispatch({type: 'fetchTable', payload: order_code})
+          dispatch({type: 'fetchTable'})
           dispatch({type: 'hideAlert'})
         }
       })
@@ -38,19 +37,43 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     * init({payload}, {put}) {
       yield put({type: 'saveQuery', payload})
     },
-    * fetchTable({payload}, {call, select, put}) {
+    * fetchTable({}, {call, select, put}) {
       const {query} = yield select(({procedure}) => procedure)
-      const {id} = query
-      const data = yield call(getProcedureList, id)
+      const {id, order_code} = query
+      // 某时 给我传id .某时，给我传order_code.绝望
+      const data = yield call(getProcedureList, id || order_code)
       yield put({type: 'setTable', payload: data.procedures})
     },
     * create({payload}, {put, call, select}) {
       const data = yield call(procedureAdd, payload)
-      console.log(data)
-      console.log('this is the create dispatch')
       message.success('创建成功')
-      yield put({type: 'fetchTable', payload})
+      yield put({type: 'fetchTable'})
       yield put({type: 'hideModal'})
+      yield put({type: 'showAlert'})
+    },
+    * update({payload}, {put, call, select}) {
+      const data = yield call(procedureUpdate, payload, payload.id)
+      message.success('修改成功')
+      yield put({type: 'fetchTable'})
+      yield put({type: 'hideModal'})
+      yield put({type: 'showAlert'})
+    },
+    * delete({payload}, {put, call, select}) {
+      const data = yield call(procedureDelete, payload)
+      message.success('删除成功')
+      yield put({type: 'fetchTable'})
+      yield put({type: 'showAlert'})
+    },
+    * toggleStatus({payload}, {put, call, select}) {
+      let {status, id} = payload
+      if (status === 0) {
+        status += 1
+      } else {
+        status = 0
+      }
+      const data = yield call(changeProcedureStatus, {status}, id)
+      message.success(status ? '开始生产' : '停止生产')
+      yield put({type: 'fetchTable'})
       yield put({type: 'showAlert'})
     }
   },

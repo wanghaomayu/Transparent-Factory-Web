@@ -6,11 +6,10 @@ const procedureAdd = async (data) => request({
   method: 'post',
   data
 })
-const procedureDelete = async (data, procedureId) => request({
+const procedureDelete = async (procedureId) => request({
   url: API.procedureDelete.replace(':procedureId', procedureId),
   token: true,
-  method: 'delete',
-  data
+  method: 'delete'
 })
 const procedureUpdate = async (data, procedureId) => request({
   url: API.procedureUpdate.replace(':procedureId', procedureId),

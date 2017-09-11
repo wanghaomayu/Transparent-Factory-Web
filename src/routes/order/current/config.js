@@ -1,3 +1,5 @@
+import {verify} from '../../../utils'
+
 const commonConfig = [
   {
     value: 'title',
@@ -6,9 +8,9 @@ const commonConfig = [
     contentType: 'string',
     rules: {
       required: true,
-      requiredMessage: '请输入订单名称',
+      requiredMessage: '请输入订单名称'
     },
-    hasFeedback: false,
+    hasFeedback: false
   }, {
     value: 'description',
     label: '订单描述',
@@ -17,7 +19,7 @@ const commonConfig = [
     type: 'textarea',
     rules: {
       required: true,
-      requiredMessage: '请输入订单描述',
+      requiredMessage: '请输入订单描述'
     }
   }, {
     value: 'startTime',
@@ -26,7 +28,7 @@ const commonConfig = [
     contentType: 'array',
     rules: {
       required: true,
-      requiredMessage: '请选择开始时间',
+      requiredMessage: '请选择开始时间'
     }
   },
   {
@@ -36,8 +38,8 @@ const commonConfig = [
     contentType: 'array',
     rules: {
       required: true,
-      requiredMessage: '请选择结束时间',
-    },
+      requiredMessage: '请选择结束时间'
+    }
   }, {
     value: 'type',
     label: '订单类型',
@@ -45,17 +47,17 @@ const commonConfig = [
     contentType: 'string',
     rules: {
       required: true,
-      requiredMessage: '请输入订单类型',
+      requiredMessage: '请输入订单类型'
     },
     options: [
       {
         value: '0',
-        label: '外部订单',
+        label: '外部订单'
       }, {
         value: '1',
-        label: '内部订单',
+        label: '内部订单'
       }],
-    hasFeedback: false,
+    hasFeedback: false
   }, {
     value: 'totalCount',
     label: '订单总数',
@@ -63,8 +65,8 @@ const commonConfig = [
     contentType: 'number',
     rules: {
       required: true,
-      requiredMessage: '请输入订单总数',
-    },
+      requiredMessage: '请输入订单总数'
+    }
   }, {
     value: 'customerInfo',
     label: '客户信息',
@@ -72,7 +74,7 @@ const commonConfig = [
     contentType: 'number',
     rules: {
       required: true,
-      requiredMessage: '请输入订单总数量',
+      requiredMessage: '请输入订单总数量'
     }
   }, {
     value: 'addOn',
@@ -82,9 +84,9 @@ const commonConfig = [
     type: 'textarea',
     rules: {
       required: true,
-      requiredMessage: '请输入附加字段',
+      requiredMessage: '请输入附加字段'
     }
   }
 ]
 
-export { commonConfig }
+export {commonConfig}
