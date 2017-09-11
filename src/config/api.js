@@ -17,12 +17,18 @@ export default {
   // end by wanghaomayu
   // procedure state edit by raoul
   procedureAdd: apiMaker('procedure/add'),
-  getProcedureList: apiMaker('/order/:orderId/procedures'),
+  getProcedureList: apiMaker('order/:orderId/procedures'),
+  // getProcedureList: apiMaker('/order/1/procedures'),
   getGroup: apiMaker('procedure/list/:workGroupId'),
   procedureDetail: apiMaker('procedure/detail/:procedureId'),
   procedureStatus: apiMaker('procedure/status/:procedureId'),
   procedureDelete: apiMaker('procedure/delete/:procedureId'),
   procedureUpdate: apiMaker('procedure/update/:procedureId'),
-  procedureLogs: apiMaker('procedure/update/:procedureId/log')
+  procedureLogs: apiMaker('procedure/update/:procedureId/log'),
   // end by raoul
+  //  list of list state by wanghaomayu
+  groupList: apiMaker('group/list'),
+  createLeaders: apiMaker('admin/leaders/create'),
+  groupUpdate: apiMaker('list/update')
+  // end by wanghaomayu
 }

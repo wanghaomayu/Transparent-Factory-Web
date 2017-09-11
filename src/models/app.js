@@ -1,7 +1,8 @@
 import { query } from '../services/app'
 import { sleep } from '../utils'
 import pathToRegexp from 'path-to-regexp'
-import {routerRedux} from 'dva/router'
+import { routerRedux } from 'dva/router'
+
 export default {
   namespace: 'app',
   state: {
@@ -11,36 +12,27 @@ export default {
   },
   subscriptions: {
     appSubscriber ({dispatch, history}) {
+      // const token = window.localStorage.getItem('userToken')
       return history.listen(({pathname}) => {
-          if (pathname==='/') {
-            dispatch(routerRedux.push('/order/current'))
-          }
+        if (pathname === '/') {
+          dispatch(routerRedux.push('/order/current'))
+        }
       })
-    },
-  },
-  effects: {
-    * query ({}, {call, put, select}) {
-      const data = yield call(query)
-      if (data.code === 0) {
-        yield put({type: 'setUser', payload: data.user})
-      } else {
-        yield call(sleep, 1000)
-        yield put({type: 'login/logout'})
-        yield put({type: 'setInfo', payload: {token: ''}})
-      }
     }
   },
+  effects: {},
   reducers: {
     querySuccess (state, {payload: user}) {
       return {
         ...state,
-        user,
+        user
       }
     },
     logout (state) {
       return {
         ...state,
-        user: {},
+        user: {}
+
       }
     },
     setInfo (state, {payload: {token}}) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Form, Button, Modal, Alert } from 'antd'
+import { Table, Form, Button, Modal,Alert } from 'antd'
 import { routerRedux } from 'dva/router'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
@@ -60,7 +60,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
         return
       }
       const {
-        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = '',
+        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = ''
       } = values
       let payload = {}
       if (modal === 'create' || modal === 'update') {
@@ -91,7 +91,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
     onChange: (current) => {
       dispatch(
         routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
-    },
+    }
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -112,9 +112,9 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           <DropOption
             menuOptions={[
               {
-                key: 'update', name: '修改订单',
+                key: 'update', name: '修改订单'
               }, {
-                key: 'procedures', name: '工序操作',
+                key: 'procedures', name: '工序操作'
               }]}
             buttonStyle={{border: 'solid 1px #eee'}}
             onMenuClick={({key}) => onMenuClick(key, record)}
@@ -123,8 +123,8 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
       },
       fixed: 'right',
       width: 80,
-      key: 'edit',
-    },
+      key: 'edit'
+    }
   ]
   return (
     <div className='contest'>

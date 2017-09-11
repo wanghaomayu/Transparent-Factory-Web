@@ -1,5 +1,3 @@
-import { verify } from '../../../utils'
-
 const commonConfig = [
   {
     value: 'title',
@@ -20,7 +18,7 @@ const commonConfig = [
     rules: {
       required: true,
       requiredMessage: '请输入订单描述',
-    },
+    }
   }, {
     value: 'startTime',
     label: '开始时间',
@@ -29,7 +27,7 @@ const commonConfig = [
     rules: {
       required: true,
       requiredMessage: '请选择开始时间',
-    },
+    }
   },
   {
     value: 'endTime',

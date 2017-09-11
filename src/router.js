@@ -21,7 +21,6 @@ const registerModelByPath = (app, pathname) => {
       registerModel(app, model)
     } catch (e) {}
   })
-
 }
 
 const Routers = ({history, app}) => {

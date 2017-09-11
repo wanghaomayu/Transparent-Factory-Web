@@ -7,8 +7,8 @@
     },
     {
       "name": "个人管理",
-      "href": "/myManage",
-      "key": "myManage"
+      "href": "/group",
+      "key": "group"
     }
   ]
 }

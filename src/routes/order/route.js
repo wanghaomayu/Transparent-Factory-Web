@@ -1,10 +1,10 @@
 module.exports = {
   path: 'order',
-  getIndexRoute(nextState, cb) {
-    require.ensure([], require => {
-      cb(null, {component: require('./current/index')})
-    })
-  },
+  // getIndexRoute (nextState, cb) {
+  //   require.ensure([], require => {
+  //     cb(null, {component: require('./current/index')})
+  //   })
+  // },
   getComponents(nextState, callback) {
     require.ensure([], () => {
       callback(null, require('./index'))

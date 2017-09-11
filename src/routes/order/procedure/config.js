@@ -2,73 +2,60 @@ import {verify} from '../../../utils'
 
 const commonConfig = [
   {
-    value: 'title',
-    label: '订单名称',
+    value: 'workGroupId',
+    label: '班组序号',
     formType: 0,
-    contentType: 'string',
+    contentType: 'number',
     rules: {
       required: true,
-      requiredMessage: '请输入订单名称'
+      requiredMessage: '请输入班组序号'
     },
     hasFeedback: false
   }, {
-    value: 'description',
-    label: '订单描述',
+    value: 'name',
+    label: '工序名称',
     formType: 0,
     contentType: 'string',
-    type: 'textarea',
     rules: {
       required: true,
-      requiredMessage: '请输入订单描述'
+      requiredMessage: '请输入工序名称'
     }
   }, {
-    value: 'startTime',
-    label: '订单开始时间',
+    value: 'totalCount',
+    label: '总量',
+    formType: 0,
+    contentType: 'number',
+    rules: {
+      required: true,
+      requiredMessage: '请输入工序总量'
+    }
+  }, {
+    value: 'weight',
+    label: '权重',
+    formType: 0,
+    contentType: 'number',
+    rules: {
+      required: true,
+      requiredMessage: '请输入工序权重'
+    }
+  }, {
+    value: 'standard',
+    label: '规格',
+    formType: 0,
+    contentType: 'string',
+    rules: {
+      required: true,
+      requiredMessage: '请输入工序规格'
+    }
+  }, {
+    value: 'time',
+    label: '时间间隔',
     formType: 3,
     extra: '时间具体到小时',
     contentType: 'array',
     rules: {
       required: true,
       requiredMessage: '请选择开始时间'
-    }
-  },
-  {
-    value: 'endTime',
-    label: '订单结束时间',
-    formType: 3,
-    extra: '时间具体到小时',
-    contentType: 'array',
-    rules: {
-      required: true,
-      requiredMessage: '请选择结束时间'
-    }
-  }, {
-    value: 'type',
-    label: '订单类型',
-    formType: 0,
-    contentType: 'string',
-    rules: {
-      required: true,
-      requiredMessage: '请输入订单类型'
-    },
-    hasFeedback: false
-  }, {
-    value: 'totalCount',
-    label: '订单总数量',
-    formType: 0,
-    contentType: 'number',
-    rules: {
-      required: true,
-      requiredMessage: '请输入订单总数量'
-    }
-  }, {
-    value: 'totalCount',
-    label: '订单总数量',
-    formType: 0,
-    contentType: 'number',
-    rules: {
-      required: true,
-      requiredMessage: '请输入订单总数量'
     }
   }
 ]

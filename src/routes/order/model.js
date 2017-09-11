@@ -1,6 +1,15 @@
+import { routerRedux } from 'dva/router'
 export default {
   namespace: 'order',
-  subscriptions: {},
+  subscriptions: {
+    appSubscriber ({dispatch, history}) {
+      return history.listen(({pathname}) => {
+        if (pathname === '/order') {
+          dispatch(routerRedux.push('/order/current'))
+        }
+      })
+    }
+  },
   effects: {},
   state: {
     query: {}

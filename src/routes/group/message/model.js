@@ -1,9 +1,9 @@
 export default {
-  namespace: 'myManage',
+  namespace: 'message',
   subscriptions: {
     appSubscriber ({dispatch, history}) {
       return history.listen(({pathname}) => {
-        console.log('myManage')
+        console.log('message')
       })
     }
   },

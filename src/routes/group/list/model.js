@@ -5,18 +5,16 @@ import {
   alertModel
 } from '../../../models/modelExtend'
 // import pathToRegexp from 'path-to-regexp'
-import {message} from 'antd'
-import {fetchTable, create, update} from './service'
+import { message } from 'antd'
+import { fetchTable, create, update } from './service'
 
 export default modelExtend(modalModel, tableModel, alertModel, {
-  namespace: 'current',
-  state: {
-    orderCode: []
-  },
+  namespace: 'list',
+  state: {},
   subscriptions: {
-    appSubscriber({dispatch, history}) {
+    appSubscriber ({dispatch, history}) {
       return history.listen(({pathname, query}) => {
-        if (pathname === '/order/current') {
+        if (pathname === '/group/list') {
           dispatch({type: 'fetchTable', payload: query})
           dispatch({type: 'hideAlert'})
         }
@@ -25,17 +23,17 @@ export default modelExtend(modalModel, tableModel, alertModel, {
   },
   effects: {
     * fetchTable ({payload = {}}, {call, select, put}) {
-      const {tablePage, tableSize} = yield select(({current}) => current)
+      const {tablePage, tableSize} = yield select(({list}) => list)
       const {page = 1, size = 50, force = false} = payload
       if (tablePage !== page || tableSize !== size || force) {
         const data = yield call(fetchTable, {page, size})
-        const {orders, totalCount} = data
+        const {records, count} = data
         const tableConfig = {
           tablePage: page,
           tableSize: size,
-          tableCount: totalCount
+          tableCount: count
         }
-        const table = orders.map((t, i) => ({
+        const table = records.map((t, i) => ({
           ...t,
           fakeId: i + 1 + (page - 1) * size
         }))
@@ -43,7 +41,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
         yield put({type: 'setTableConfig', payload: tableConfig})
       }
     },
-    * create({payload}, {put, call}) {
+    * create ({payload}, {put, call}) {
       const orderCode = yield call(create, payload)
       console.log(orderCode)
       yield put({type: 'fetchTable', payload: {force: true}})
@@ -52,8 +50,9 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       yield put({type: 'hideModal'})
       yield put({type: 'showAlert'})
     },
-    * update({payload}, {select, call, put}) {
+    * update ({payload}, {select, call, put}) {
       const {id} = yield select(({current}) => current.modalContent)
+      console.log(id)
       yield call(update, payload, id)
       yield put({type: 'hideModal'})
       message.success('修改成功')
@@ -61,7 +60,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     }
   },
   reducers: {
-    changeOrderCode(state, {payload: orderCode}) {
+    changeOrderCode (state, {payload: orderCode}) {
       return {
         ...state,
         orderCode

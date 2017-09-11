@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon, Menu } from 'antd'
 import { Link } from 'dva/router'
 import { urlEncode, windowScroll } from '../../../utils'
+
 const {SubMenu} = Menu
 const Sider = ({menuConfig, location, query = {}}) => {
   const {menus = [], openKeys = [], defaultSelectedKeys} = menuConfig
@@ -10,13 +11,17 @@ const Sider = ({menuConfig, location, query = {}}) => {
       const {subMenus = []} = item
       if (subMenus.length > 0) {
         return (
-          <SubMenu key={item.key} title={<span><Icon type={item.icon} /> {item.value}</span>}>
+          <SubMenu key={item.key}
+                   title={<span><Icon type={item.icon} /> {item.value}</span>}>
             {renderMenus(subMenus)}
           </SubMenu>
         )
       }
-      const queryString = item.route ? '?' + urlEncode(query[item.route] || {}) : ''
+      const queryString = item.route
+        ? '?' + urlEncode(query[item.route] || {})
+        : ''
       return (
+        //   URL路由重复的原因：这边跳转的是item.key,所得menu.json里面的key一定要设绝对路径，如：'/group/list'
         <Menu.Item key={item.key}>
           <Link to={item.key + queryString}><Icon type={item.icon} />{item.value}</Link>
         </Menu.Item>
