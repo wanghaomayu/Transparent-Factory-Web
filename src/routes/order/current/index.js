@@ -1,11 +1,11 @@
 import React from 'react'
-import { Table, Form, Button, Modal, Alert } from 'antd'
-import { routerRedux } from 'dva/router'
+import {Table, Form, Button, Modal} from 'antd'
+import {routerRedux} from 'dva/router'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
-import { commonConfig } from './config'
-import { connect } from 'dva'
-import { urlEncode } from '../../../utils'
+import {commonConfig} from './config'
+import {connect} from 'dva'
+import {urlEncode} from '../../../utils'
 import moment from 'moment'
 import './index.less'
 
@@ -29,7 +29,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           customerInfo: record.customerInfo,
           addOn: record.addOn,
           startTime: moment(startTime, 'YYYY-MM-DD'),
-          endTime: moment(endTime, 'YYYY-MM-DD'),
+          endTime: moment(endTime, 'YYYY-MM-DD')
         }
         dispatch({type: 'current/updateModalContent', payload: payload})
         dispatch({type: 'current/showModal', payload: 'update'})
@@ -38,11 +38,12 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
         confirm({
           title: `跳转确认`,
           content: `你确定要跳转到 ${record.title} 题目列表吗？`,
-          onOk () {
+          onOk() {
             dispatch(routerRedux.push(`/order/procedure?` +
-              urlEncode({id: record.id})))
+              urlEncode({order_code: record.id})))
           },
-          onCancel () {},
+          onCancel() {
+          }
         })
         break
     }
@@ -60,7 +61,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
         return
       }
       const {
-        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = '',
+        title = '', description = '', startTime = '', endTime = '', totalCount = '', customerInfo = '', type = '', addOn = ''
       } = values
       let payload = {}
       if (modal === 'create' || modal === 'update') {
@@ -91,7 +92,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
     onChange: (current) => {
       dispatch(
         routerRedux.push(`/order/current?page=${current}&size=${tableSize}`))
-    },
+    }
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -112,9 +113,9 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           <DropOption
             menuOptions={[
               {
-                key: 'update', name: '修改订单',
+                key: 'update', name: '修改订单'
               }, {
-                key: 'procedures', name: '工序操作',
+                key: 'procedures', name: '工序操作'
               }]}
             buttonStyle={{border: 'solid 1px #eee'}}
             onMenuClick={({key}) => onMenuClick(key, record)}
@@ -123,8 +124,8 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
       },
       fixed: 'right',
       width: 80,
-      key: 'edit',
-    },
+      key: 'edit'
+    }
   ]
   return (
     <div className='contest'>

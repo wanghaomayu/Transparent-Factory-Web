@@ -17,7 +17,8 @@ export default {
   // end by wanghaomayu
   // procedure state edit by raoul
   procedureAdd: apiMaker('procedure/add'),
-  getProcedureList: apiMaker('/order/:orderId/procedures'),
+  getProcedureList: apiMaker('order/:orderId/procedures'),
+  // getProcedureList: apiMaker('/order/1/procedures'),
   getGroup: apiMaker('procedure/list/:workGroupId'),
   procedureDetail: apiMaker('procedure/detail/:procedureId'),
   procedureStatus: apiMaker('procedure/status/:procedureId'),

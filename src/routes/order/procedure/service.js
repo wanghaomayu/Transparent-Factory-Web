@@ -18,8 +18,13 @@ const procedureUpdate = async (data, procedureId) => request({
   method: 'put',
   data
 })
-const getProcedureList = async (data, workGroupId) => request({
-  url: API.getProcedureList.replace(':workGroupId', workGroupId),
+const getProcedureList = async (orderId) => request({
+  url: API.getProcedureList.replace(':orderId', orderId),
+  token: true,
+  method: 'get'
+})
+const getGroup = async (data, workGroupId) => request({
+  url: API.getGroup.replace(':workGroupId', workGroupId),
   token: true,
   method: 'get',
   data

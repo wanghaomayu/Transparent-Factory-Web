@@ -2,11 +2,11 @@ import modelExtend from 'dva-model-extend'
 import {
   modalModel,
   tableModel,
-  alertModel,
+  alertModel
 } from '../../../models/modelExtend'
 // import pathToRegexp from 'path-to-regexp'
-import { message } from 'antd'
-import { fetchTable, create, update } from './service'
+import {message} from 'antd'
+import {fetchTable, create, update} from './service'
 
 export default modelExtend(modalModel, tableModel, alertModel, {
   namespace: 'current',
@@ -14,7 +14,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     orderCode: []
   },
   subscriptions: {
-    appSubscriber ({dispatch, history}) {
+    appSubscriber({dispatch, history}) {
       return history.listen(({pathname, query}) => {
         if (pathname === '/order/current') {
           dispatch({type: 'fetchTable', payload: query})
@@ -43,7 +43,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
         yield put({type: 'setTableConfig', payload: tableConfig})
       }
     },
-    * create ({payload}, {put, call}) {
+    * create({payload}, {put, call}) {
       const orderCode = yield call(create, payload)
       console.log(orderCode)
       yield put({type: 'fetchTable', payload: {force: true}})
@@ -52,7 +52,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       yield put({type: 'hideModal'})
       yield put({type: 'showAlert'})
     },
-    * update ({payload}, {select, call, put}) {
+    * update({payload}, {select, call, put}) {
       const {id} = yield select(({current}) => current.modalContent)
       yield call(update, payload, id)
       yield put({type: 'hideModal'})
@@ -61,7 +61,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     }
   },
   reducers: {
-    changeOrderCode (state, {payload: orderCode}) {
+    changeOrderCode(state, {payload: orderCode}) {
       return {
         ...state,
         orderCode

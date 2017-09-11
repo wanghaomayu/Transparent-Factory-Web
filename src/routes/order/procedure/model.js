@@ -1,14 +1,14 @@
 // import pathToRegexp from 'path-to-regexp'
 // import { message } from 'antd'
 /* eslint-disable */
-
+import modelExtend from 'dva-model-extend'
 import {
   modalModel,
   tableModel,
   alertModel
 } from '../../../models/modelExtend'
 import pathToRegexp from 'path-to-regexp'
-import { message } from 'antd'
+import {message} from 'antd'
 import {
   procedureAdd,
   procedureDelete,
@@ -21,37 +21,47 @@ import {
 
 export default modelExtend(modalModel, tableModel, alertModel, {
   namespace: 'procedure',
-  state: {},
+  state: {order_code: ''},
   subscriptions: {
     appSubscriber({dispatch, history}) {
       return history.listen(({pathname, query}) => {
-        if (pathname === '/order/current') {
-          dispatch({type: 'fetchTable', payload: query})
+        if (pathname === '/order/procedure') {
+          const {order_code} = query
+          dispatch({type: 'init', payload: query})
+          dispatch({type: 'fetchTable', payload: order_code})
           dispatch({type: 'hideAlert'})
         }
       })
     }
   },
   effects: {
-    * fetchTable({payload = {}}, {call, select, put}) {
-      const {tablePage, tableSize} = yield select(({current}) => current)
-      const {page = 1, size = 50, force = false} = payload
-      if (tablePage !== page || tableSize !== size || force) {
-        const data = yield call(getProcedureList, {page, size})
-        const {orders, totalCount} = data
-        const tableConfig = {
-          tablePage: page,
-          tableSize: size,
-          tableCount: totalCount
-        }
-        const table = orders.map((t, i) => ({
-          ...t,
-          fakeId: i + 1 + (page - 1) * size
-        }))
-        yield put({type: 'setTable', payload: table})
-        yield put({type: 'setTableConfig', payload: tableConfig})
-      }
+    * init({payload}, {put}) {
+      yield put({type: 'saveQuery', payload})
+    },
+    * fetchTable({payload}, {call, select, put}) {
+      const {order_code} = yield select(({procedure}) => procedure)
+      console.log(order_code)
+      const data = yield call(getProcedureList, payload)
+      yield put({type: 'setTable', payload: data.procedures})
+    },
+    * create({payload}, {put, call, select}) {
+      const {order_code} = yield select(({procedure}) => procedure)
+      const data = yield call(procedureAdd, payload)
+      console.log(data)
+      console.log('this is the create dispatch')
+      dispatch({type: 'fetchTable', payload: order_code})
+      message.success('创建成功')
+      yield put({type: 'fetchTable', payload})
+      yield put({type: 'hideModal'})
+      yield put({type: 'showAlert'})
     }
   },
-  reducers: {}
+  reducers: {
+    saveQuery(state, {payload: query}) {
+      return {
+        ...state,
+        query
+      }
+    }
+  }
 })
