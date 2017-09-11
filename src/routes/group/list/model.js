@@ -42,17 +42,16 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       }
     },
     * create ({payload}, {put, call}) {
-      const orderCode = yield call(create, payload)
-      console.log(orderCode)
+      const body = {leaders: [payload]}
+      yield call(create, body)
       yield put({type: 'fetchTable', payload: {force: true}})
-      message.success('创建成功')
-      yield put({type: 'changeOrderCode', payload: orderCode})
+      message.success('创建成功,可用创建的班组长账号创建班组')
+      // yield put({type: 'changeOrderCode', payload: orderCode})
       yield put({type: 'hideModal'})
       yield put({type: 'showAlert'})
     },
     * update ({payload}, {select, call, put}) {
-      const {id} = yield select(({current}) => current.modalContent)
-      console.log(id)
+      const {id} = yield select(({list}) => list.modalContent)
       yield call(update, payload, id)
       yield put({type: 'hideModal'})
       message.success('修改成功')
