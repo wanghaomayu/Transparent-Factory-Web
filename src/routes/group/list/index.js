@@ -66,13 +66,11 @@ const List = ({list, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
     pageSizeOptions: ['20', '50', '100'],
     showSizeChanger: true,
     onShowSizeChange: (current, pageSize) => {
-      dispatch(
-        routerRedux.push(`/group/list?page=${current}&size=${pageSize}`))
+      dispatch(routerRedux.push(`/group/list?page=${current}&size=${pageSize}`))
     },
     onChange: (current) => {
-      dispatch(
-        routerRedux.push(`/group/list?page=${current}&size=${tableSize}`))
-    },
+      dispatch(routerRedux.push(`/group/list?page=${current}&size=${tableSize}`))
+    }
   }
   const columns = [
     {title: '序号', dataIndex: 'fakeId', key: 'id', width: 50},
@@ -101,7 +99,7 @@ const List = ({list, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
       fixed: 'right',
       width: 80,
       key: 'edit',
-    },
+    }
   ]
   return (
     <div className='list'>
@@ -117,7 +115,7 @@ const List = ({list, dispatch, form: {getFieldDecorator, validateFieldsAndScroll
       <Modal
         title={modalContent.modalTitle}
         visible={!!modal}
-        onCancel={() => dispatch({type: 'current/hideModal'})}
+        onCancel={() => dispatch({type: 'list/hideModal'})}
         onOk={onModalOk}
         key={'' + modal}
       >

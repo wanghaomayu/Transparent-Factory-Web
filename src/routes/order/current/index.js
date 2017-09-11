@@ -49,8 +49,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
   }
   const onCreateClick = e => {
     e.preventDefault()
-    dispatch(
-      {type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
+    dispatch({type: 'current/updateModalContent', payload: {modalTitle: '创建订单'}})
     dispatch({type: 'current/showModal', payload: 'create'})
   }
   //   模态框确定按钮
