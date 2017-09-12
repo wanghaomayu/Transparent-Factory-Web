@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, Form, Button, Modal, Tag} from 'antd'
+import {Table, Form, Button, Modal, Tag, Radio} from 'antd'
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
 import moment from 'moment'
 import DropOption from '../../../components/DropOption/'
@@ -111,7 +111,24 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
     })
   }
   const toggleStatus = (record) => {
-    dispatch({type: 'procedure/toggleStatus', payload: record})
+    const {id, status} = record
+    if (status === 1) {
+      confirm({
+        title: '状态修改确认',
+        content: '确定修改状态为已完成?',
+        onOk() {
+          dispatch({
+            type: 'procedure/toggleStatus', payload: {status: 2, id}
+          })
+        },
+        onCancel() {
+        }
+      })
+    } else if (status === 0) {
+      dispatch({type: 'procedure/toggleStatus', payload: {status: 1, id}})
+    } else {
+      dispatch({type: 'procedure/toggleStatus', payload: {status: 0, id}})
+    }
   }
   const getLogs = (record) => {
     dispatch({type: 'procedure/getLogs', payload: record[0]})
@@ -183,13 +200,12 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
         rowKey={record => record.id}
         onExpandedRowsChange={getLogs}
         expandedRowRender={record =>
-          <LineChart width={400} height={400} data={logs}>
+          <LineChart width={1300} height={400} data={logs}>
             <XAxis dataKey="leaderName"/>
             <YAxis/>
             <CartesianGrid strokeDasharray="3 3"/>
             <Tooltip/>
             <Legend/>
-            <Line type="monotone" dataKey="totalCount" stroke="#8884d8" activeDot={{r: 8}}/>
             <Line type="monotone" dataKey="successCount" stroke="#82ca9d" activeDot={{r: 8}}/>
           </LineChart>}
       />

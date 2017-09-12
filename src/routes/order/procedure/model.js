@@ -73,13 +73,8 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     },
     * toggleStatus({payload}, {put, call, select}) {
       let {status, id} = payload
-      if (status === 0) {
-        status += 1
-      } else {
-        status = 0
-      }
       const data = yield call(changeProcedureStatus, {status}, id)
-      message.success(status ? '开始生产' : '停止生产')
+      message.success(status ? ('开始生产') : '停止生产')
       yield put({type: 'fetchTable'})
       yield put({type: 'showAlert'})
     },
