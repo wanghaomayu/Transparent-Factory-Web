@@ -84,7 +84,6 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       yield put({type: 'showAlert'})
     },
     * getLogs({payload}, {call, put, select}) {
-      console.log(payload)
       if (payload) {
         const data = yield call(procedureLogs, payload)
         yield put({type: 'saveLogs', payload: data.logs})

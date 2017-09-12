@@ -114,7 +114,6 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
     dispatch({type: 'procedure/toggleStatus', payload: record})
   }
   const getLogs = (record) => {
-    console.log(record)
     dispatch({type: 'procedure/getLogs', payload: record[0]})
   }
   const procedureStatus = [
