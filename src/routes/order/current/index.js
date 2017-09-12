@@ -40,7 +40,7 @@ const Current = ({current, dispatch, form: {getFieldDecorator, validateFieldsAnd
           content: `你确定要跳转到 ${record.title} 题目列表吗？`,
           onOk () {
             dispatch(routerRedux.push(`/order/procedure?` +
-              urlEncode({id: record.id})))
+              urlEncode({order_id: record.id})))
           },
           onCancel () {},
         })
