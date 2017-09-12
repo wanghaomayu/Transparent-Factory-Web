@@ -82,6 +82,13 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       message.success(status ? '开始生产' : '停止生产')
       yield put({type: 'fetchTable'})
       yield put({type: 'showAlert'})
+    },
+    * getLogs({payload}, {call, put, select}) {
+      console.log(payload)
+      if (payload) {
+        const data = yield call(procedureLogs, payload)
+        yield put({type: 'saveLogs', payload: data.logs})
+      }
     }
   },
   reducers: {
@@ -95,6 +102,12 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       return {
         ...state,
         groupList
+      }
+    },
+    saveLogs(state, {payload: logs}) {
+      return {
+        ...state,
+        logs
       }
     }
   }

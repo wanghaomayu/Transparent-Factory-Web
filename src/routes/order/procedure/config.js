@@ -10,15 +10,6 @@ const commonConfig = [{
     requiredMessage: '请输入工序名称'
   }
 }, {
-  value: 'successCount',
-  label: '已生产件数',
-  formType: 0,
-  contentType: 'string',
-  rules: {
-    required: true,
-    requiredMessage: '请输入已经生产的件数'
-  }
-}, {
   value: 'totalCount',
   label: '总量',
   formType: 0,

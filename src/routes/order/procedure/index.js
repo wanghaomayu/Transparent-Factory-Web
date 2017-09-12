@@ -1,6 +1,6 @@
 import React from 'react'
 import {Table, Form, Button, Modal, Tag} from 'antd'
-import {Link, routerRedux} from 'dva/router'
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
 import moment from 'moment'
 import DropOption from '../../../components/DropOption/'
 import FormItemRender from '../../../components/FormItemRender/'
@@ -11,9 +11,10 @@ import './index.less'
 
 const {confirm} = Modal
 const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, validateFieldsAndScroll}}) => {
-  const {table = [], groupList, modal = false, modalContent = {}} = procedure
+  const {table = [], groupList, modal = false, modalContent = {}, logs = []} = procedure
   const {query} = location
   const {order_id} = query
+  console.log(logs)
   const GroupOptions = groupList.map(config => {
     return {
       value: config.id + '',
@@ -113,28 +114,19 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
   const toggleStatus = (record) => {
     dispatch({type: 'procedure/toggleStatus', payload: record})
   }
-  // const pagination = {
-  //   pageSize: +tableSize,
-  //   procedure: +tablePage,
-  //   total: +tableCount,
-  //   pageSizeOptions: ['20', '50', '100'],
-  //   showSizeChanger: true,
-  //   onShowSizeChange: (procedure, pageSize) => {
-  //     dispatch(
-  //       routerRedux.push(`/order/procedure?page=${procedure}&size=${pageSize}`))
-  //   },
-  //   onChange: (procedure) => {
-  //     dispatch(routerRedux.push(`/order/procedure?page=${procedure}&size=${tableSize}`))
-  //   }
-  // }
+  const getLogs = (record) => {
+    console.log(record)
+    dispatch({type: 'procedure/getLogs', payload: record[0]})
+  }
   const procedureStatus = [
-    '停产',
-    '生产'
+    '未开始',
+    '进行中',
+    '已完成'
   ]
   const colorArr = {
     0: color.gray,
-    1: color.green,
-    2: color.red
+    1: color.blue,
+    2: color.green
   }
   const columns = [
     {title: '序号', dataIndex: 'id', key: 'id', width: 50},
@@ -182,8 +174,8 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
     }
   ]
   return (
-    <div className='contest'>
-      <div className='contest-header'>
+    <div className='procedure'>
+      <div className='procedure-header'>
         <span>工序列表</span>
         <Button type='primary' onClick={onCreateClick}>添加工序</Button>
       </div>
@@ -191,6 +183,17 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
         columns={columns} bordered
         dataSource={table} scroll={{x: 1600}}
         rowKey={record => record.id}
+        onExpandedRowsChange={getLogs}
+        expandedRowRender={record =>
+          <LineChart width={400} height={400} data={logs}>
+            <XAxis dataKey="leaderName"/>
+            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Tooltip/>
+            <Legend/>
+            <Line type="monotone" dataKey="totalCount" stroke="#8884d8" activeDot={{r: 8}}/>
+            <Line type="monotone" dataKey="successCount" stroke="#82ca9d" activeDot={{r: 8}}/>
+          </LineChart>}
       />
       <Modal
         title={modalContent.modalTitle}

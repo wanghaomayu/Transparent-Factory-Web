@@ -23,7 +23,8 @@ export default {
   procedureStatus: apiMaker('procedure/status/:procedureId'),
   procedureDelete: apiMaker('procedure/delete/:procedureId'),
   procedureUpdate: apiMaker('procedure/update/:procedureId'),
-  procedureLogs: apiMaker('procedure/update/:procedureId/log'),
+  procedureLogs: apiMaker('procedure/:procedureId/logs'),
+  // procedureLogs: apiMaker('procedure/4/logs'),
   // end by raoul
   //  list of list state by wanghaomayu
   groupList: apiMaker('group/list'),

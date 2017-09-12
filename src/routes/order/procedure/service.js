@@ -34,11 +34,10 @@ const procedureDetail = async (data, procedureId) => request({
   method: 'get',
   data
 })
-const procedureLogs = async (data, procedureId) => request({
+const procedureLogs = async (procedureId) => request({
   url: API.procedureLogs.replace(':procedureId', procedureId),
   token: true,
   method: 'get',
-  data
 })
 const changeProcedureStatus = async (data, procedureId) => request({
   url: API.procedureStatus.replace(':procedureId', procedureId),
