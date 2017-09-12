@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import './index.less'
 import { connect } from 'dva'
 const FormItem = Form.Item
@@ -14,8 +14,12 @@ class Correct extends React.Component {
     e.preventDefault()
     validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values)
-        dispatch({type: 'correct/update', payload: values})
+        if (values['password'].length < 6) {
+          message.warning('密码长度必须大于等于六位')
+        } else {
+          console.log('Received values of form: ', values)
+          dispatch({type: 'correct/update', payload: values})
+        }
       }
     })
   }
