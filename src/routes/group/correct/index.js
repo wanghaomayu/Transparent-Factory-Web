@@ -30,7 +30,7 @@ class Correct extends React.Component {
   checkPassword = (rule, value, callback) => {
     const {form: {getFieldValue}} = this.props
     if (value && value !== getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!')
+      callback('输入的两次密码不一致')
     } else {
       callback()
     }
@@ -70,7 +70,7 @@ class Correct extends React.Component {
           >
             {getFieldDecorator('password', {
               rules: [{
-                required: true, message: 'Please input your password!'
+                required: true, message: '请输入你的密码'
               }]
             })(
               <Input type='password' />
@@ -83,7 +83,7 @@ class Correct extends React.Component {
           >
             {getFieldDecorator('confirm', {
               rules: [{
-                required: true, message: 'Please confirm your password!'
+                required: true, message: '请确认你的密码'
               }, {
                 validator: this.checkPassword
               }]

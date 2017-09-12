@@ -53,7 +53,7 @@ const Phone = ({phone, dispatch, form: {getFieldDecorator, validateFieldsAndScro
           label='新手机号'
           >
           {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }]
+            rules: [{ required: true, message: '请输入你的手机号' }]
           })(
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
             )}
