@@ -14,7 +14,6 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
   const {table = [], groupList, modal = false, modalContent = {}, logs = []} = procedure
   const {query} = location
   const {order_id} = query
-  console.log(logs)
   const GroupOptions = groupList.map(config => {
     return {
       value: config.id + '',
