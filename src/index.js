@@ -4,7 +4,7 @@ import dva from 'dva'
 import createLoading from 'dva-loading'
 import { browserHistory } from 'dva/router'
 import { message } from 'antd'
-
+import { codeHelper } from './utils'
 // 1. Initialize
 const app = dva({
   ...createLoading({
@@ -12,7 +12,13 @@ const app = dva({
   }),
   history: browserHistory,
   onError (error) {
-    message.error(error.message)
+    if (error.type === 'NotExpect') {
+      codeHelper(error.code)
+    } else if (error.message) {
+
+    } else {
+      message.error(error.message)
+    }
   }
 })
 

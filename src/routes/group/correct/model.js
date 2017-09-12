@@ -1,3 +1,5 @@
+import { update } from './service'
+import { message } from 'antd'
 export default {
   namespace: 'correct',
   subscriptions: {
@@ -8,5 +10,12 @@ export default {
     }
   },
   state: {},
-  reducers: {}
+  effects: {
+    * update ({payload}, {call, put}) {
+      yield call(update, payload)
+      message.success('修改成功')
+    }
+  },
+  reducers: {
+  }
 }

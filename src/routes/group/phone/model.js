@@ -1,4 +1,5 @@
 import { update } from './service'
+import { message } from 'antd'
 export default {
   namespace: 'phone',
   subscriptions: {
@@ -10,20 +11,10 @@ export default {
   },
   state: {},
   effects: {
-    * phone ({payload}, {put, call}) {
-      console.log('sucess')
-      const body = {
-        client: '2',
-        ...payload
-      }
-      const data = yield call(update, body)
-      const {token, user} = data
-      window.localStorage.setItem('userToken', token)
-      window.localStorage.setItem('userName', user.name)
-      window.localStorage.setItem('mobile', user.mobile)
-      // yield put({type: 'app/setUser', payload: user})
-      // yield put({type: 'app/setInfo', payload: {token: token}})
-      // yield put(routerRedux.push('/order/current'))
+    * update ({payload}, {call, put}) {
+      console.log(1)
+      yield call(update, payload)
+      message.success('修改成功')
     }
   },
   reducers: {

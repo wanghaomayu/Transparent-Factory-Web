@@ -31,5 +31,5 @@ export default {
   createLeaders: apiMaker('admin/leaders/create'),
   groupUpdate: apiMaker('list/update'),
   // end by wanghaomayu
-  updateMessage: apiMaker('user/:id')
+  updateMessage: apiMaker('user/' + window.localStorage.getItem('id'))
 }

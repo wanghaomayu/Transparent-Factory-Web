@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
-import { Form, Input, Row, Col, Button } from 'antd'
+import React from 'react'
+import { Form, Input, Button } from 'antd'
 import './index.less'
+import { connect } from 'dva'
 const FormItem = Form.Item
 
-class Correct extends Component {
+class Correct extends React.Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: []
   };
   handleSubmit = (e) => {
+    const {dispatch, form: {validateFieldsAndScroll}} = this.props
     e.preventDefault()
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+        dispatch({type: 'correct/update', payload: values})
       }
     })
   }
@@ -21,33 +24,16 @@ class Correct extends Component {
     this.setState({ confirmDirty: this.state.confirmDirty || !!value })
   }
   checkPassword = (rule, value, callback) => {
-    const form = this.props.form
-    if (value && value !== form.getFieldValue('password')) {
+    const {form: {getFieldValue}} = this.props
+    if (value && value !== getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!')
     } else {
       callback()
     }
   }
-  checkConfirm = (rule, value, callback) => {
-    const form = this.props.form
-    if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true })
-    }
-    callback()
-  }
 
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult
-    if (!value) {
-      autoCompleteResult = []
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`)
-    }
-    this.setState({ autoCompleteResult })
-  }
   render () {
-    const { getFieldDecorator } = this.props.form
-
+    const { form: {getFieldDecorator}} = this.props
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -70,7 +56,6 @@ class Correct extends Component {
         }
       }
     }
-
     return (
       <div className='form'>
         <Form onSubmit={this.handleSubmit}>
@@ -78,22 +63,20 @@ class Correct extends Component {
             {...formItemLayout}
             label='新密码'
             hasFeedback
-        >
+          >
             {getFieldDecorator('password', {
               rules: [{
                 required: true, message: 'Please input your password!'
-              }, {
-                validator: this.checkConfirm
               }]
             })(
               <Input type='password' />
-          )}
+            )}
           </FormItem>
           <FormItem
             {...formItemLayout}
             label='确认新密码'
             hasFeedback
-        >
+          >
             {getFieldDecorator('confirm', {
               rules: [{
                 required: true, message: 'Please confirm your password!'
@@ -102,24 +85,7 @@ class Correct extends Component {
               }]
             })(
               <Input type='password' onBlur={this.handleConfirmBlur} />
-          )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label='手机验证码'
-        >
-            <Row gutter={8}>
-              <Col span={12}>
-                {getFieldDecorator('captcha', {
-                  rules: [{ required: true, message: 'Please input the captcha you got!' }]
-                })(
-                  <Input size='large' />
-              )}
-              </Col>
-              <Col span={12}>
-                <Button size='large'>获取验证码</Button>
-              </Col>
-            </Row>
+            )}
           </FormItem>
           <FormItem {...tailFormItemLayout}>
             <Button type='primary' htmlType='submit'>确认修改</Button>
@@ -130,4 +96,4 @@ class Correct extends Component {
   }
 }
 
-export default Form.create()(Correct)
+export default connect(({app, correct}) => ({app, correct}))(Form.create()(Correct))
