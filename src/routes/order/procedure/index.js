@@ -257,7 +257,7 @@ class Procedure extends Component {
             </LineChart>
           </div>
         ) : (
-          <h1 className='no-message'>暂无生产信息</h1>
+          <h1 className='no-message'>暂无{logIndex ? `工序${logIndex}的` : ''}生产信息</h1>
         )}
       </div>
     )
