@@ -22,7 +22,7 @@ const getProcedureList = async (orderId) => request({
   token: true,
   method: 'get'
 })
-const getGroup = async (data, workGroupId) => request({
+const getGroupProcedure = async (data, workGroupId) => request({
   url: API.getGroup.replace(':workGroupId', workGroupId),
   token: true,
   method: 'get',
@@ -46,6 +46,12 @@ const changeProcedureStatus = async (data, procedureId) => request({
   method: 'put',
   data
 })
+const getGroupList = async (data) => request({
+  url: API.groupList,
+  token: true,
+  method: 'get',
+  data
+})
 
 export {
   procedureAdd,
@@ -53,6 +59,8 @@ export {
   procedureUpdate,
   getProcedureList,
   procedureDetail,
+  getGroupProcedure,
+  getGroupList,
   changeProcedureStatus,
   procedureLogs
 }

@@ -11,10 +11,15 @@ import './index.less'
 
 const {confirm} = Modal
 const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, validateFieldsAndScroll}}) => {
-  const {table = [], tablePage, modal = false, modalContent = {}} = procedure
+  const {table = [], groupList, modal = false, modalContent = {}} = procedure
   const {query} = location
-  const {order_code} = query
-
+  const {order_id} = query
+  const GroupOptions = groupList.map(config => {
+    return {
+      value: config.id + '',
+      label: config.name
+    }
+  })
   const formItemLayout = {
     labelCol: {
       xs: {span: 24},
@@ -35,7 +40,7 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
     let payload = {}
     switch (key) {
       case 'update':
-        const {id = '', name = '', orderId = order_code, successCount = '', standard = '', workGroupId, totalCount = '', startTime = '', endTime = '', weight = '', description = ''} = record
+        const {id = '', name = '', orderId = order_id, successCount = '', standard = '', workGroupId, totalCount = '', startTime = '', endTime = '', weight = '', description = ''} = record
         payload = {
           id: id,
           orderId: orderId,
@@ -76,7 +81,7 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
         return
       }
       const {
-        name = '', orderId = order_code, description = '', successCount = '', standard = '', workGroupId = '', totalCount = '', startTime = '', endTime = '', weight = ''
+        name = '', orderId = order_id, description = '', successCount = '', standard = '', workGroupId = '', totalCount = '', startTime = '', endTime = '', weight = ''
       } = values
       let originWeight = weight
       let weights = table.map((item) => {
@@ -195,6 +200,18 @@ const Procedure = ({location, procedure, dispatch, form: {getFieldDecorator, val
         key={'' + modal}
       >
         <Form className='form-content'>
+          {
+            FormItemRender({
+              value: 'workGroupId',
+              label: '班组',
+              formType: 2,
+              contentType: 'string',
+              rules: {
+                required: true,
+                requiredMessage: '请选择您所在的班组'
+              },
+              options: GroupOptions
+            }, getFieldDecorator)}
           {
             (modal === 'update' || modal === 'create') && commonConfig.map(
               config => FormItemRender(config, getFieldDecorator,

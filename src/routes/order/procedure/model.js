@@ -15,6 +15,8 @@ import {
   procedureUpdate,
   getProcedureList,
   procedureDetail,
+  getGroupList,
+  getGroupProcedure,
   changeProcedureStatus,
   procedureLogs
 } from './service'
@@ -27,6 +29,7 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       return history.listen(({pathname, query}) => {
         if (pathname === '/order/procedure') {
           dispatch({type: 'init', payload: query})
+          dispatch({type: 'fetchGroupList'})
           dispatch({type: 'fetchTable'})
           dispatch({type: 'hideAlert'})
         }
@@ -34,14 +37,18 @@ export default modelExtend(modalModel, tableModel, alertModel, {
     }
   },
   effects: {
-    * init({payload}, {put}) {
+    * init({payload}, {put, call}) {
       yield put({type: 'saveQuery', payload})
+    },
+    * fetchGroupList({}, {call, put}) {
+      const data = yield call(getGroupList)
+      yield put({type: 'saveGroupList', payload: data.records})
     },
     * fetchTable({}, {call, select, put}) {
       const {query} = yield select(({procedure}) => procedure)
-      const {id, order_code} = query
-      // 某时 给我传id .某时，给我传order_code.绝望
-      const data = yield call(getProcedureList, id || order_code)
+      const {id, order_id} = query
+      // 某时 给我传id .某时，给我传order_id.绝望
+      const data = yield call(getProcedureList, id || order_id)
       yield put({type: 'setTable', payload: data.procedures})
     },
     * create({payload}, {put, call, select}) {
@@ -82,6 +89,12 @@ export default modelExtend(modalModel, tableModel, alertModel, {
       return {
         ...state,
         query
+      }
+    },
+    saveGroupList(state, {payload: groupList}) {
+      return {
+        ...state,
+        groupList
       }
     }
   }
