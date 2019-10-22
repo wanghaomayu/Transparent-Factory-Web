@@ -26,7 +26,7 @@
     "react-slick": "^0.14.11",
     "recharts": "^0.19.1",
     "run-sequence": "^2.1.0",
-    "yarn": "^0.27.5"
+    "yarn": "^1.19.1"
   },
   "devDependencies": {
     "axios": "^0.15.3",
